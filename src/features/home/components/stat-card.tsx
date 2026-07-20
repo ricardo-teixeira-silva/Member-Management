@@ -9,7 +9,7 @@ interface StatCardProps {
 
 export function StatCard({ title, value, icon }: StatCardProps) {
   return (
-    <View className="flex-1 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+    <View className="w-[48%] mb-4 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
       <View className="mb-5 h-16 w-16 items-center justify-center rounded-full bg-amber-100">
         {icon}
       </View>

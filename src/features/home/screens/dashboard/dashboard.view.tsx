@@ -2,6 +2,7 @@ import { Container } from "@/shared/componentes";
 import { useCurrentMember } from "@/shared/hooks/useCurrentMember";
 import { Text, View } from "react-native";
 import { MenuStats } from "../../components/menu-stats";
+import { QuickActions } from "../../components/quick-actions";
 import { TotalMembersCard } from "../../components/total-members-card";
 
 export default function Dashboard() {
@@ -23,6 +24,7 @@ export default function Dashboard() {
       </View>
       <TotalMembersCard total={48} growth="+12 este mês" />
       <MenuStats />
+      <QuickActions />
     </Container>
   );
 }
