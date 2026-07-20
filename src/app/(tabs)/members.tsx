@@ -1,3 +1,3 @@
-import { Text } from "react-native";
-const MembersScreens = () => <Text>Membros</Text>;
+import Members from "@/features/members/screens/members/members.view";
+const MembersScreens = () => <Members />;
 export default MembersScreens;

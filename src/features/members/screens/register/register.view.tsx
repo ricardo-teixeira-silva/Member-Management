@@ -39,7 +39,7 @@ export default function Register() {
   return (
     <Container>
       <View className=" gap-1 w-[80%]">
-        <Text className="text-calor_darkblue text-2xl font-semibold">
+        <Text className="text-color_darkblue text-2xl font-semibold">
           Cadastro de Membros
         </Text>
         <Text className="text-color_silver text-sm">
