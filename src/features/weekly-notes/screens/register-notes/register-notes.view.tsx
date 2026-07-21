@@ -1,8 +1,9 @@
 // RegisterNotes.tsx
 import { Button, Container } from "@/shared/componentes";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Text, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { DayBox } from "../../components/day-box";
 import { useRegisterNotesModel } from "./register-notes.model";
 
@@ -12,14 +13,28 @@ export default function RegisterNotes() {
   const [highlightDays, setHighlightDays] = useState<Record<string, boolean>>(
     {},
   );
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
+  const [showStart, setShowStart] = useState(false);
+  const [showEnd, setShowEnd] = useState(false);
 
   const handleHighlightChange = (dayKey: string, value: boolean) => {
     setHighlightDays((prev) => ({ ...prev, [dayKey]: value }));
   };
 
   const onSubmit = (data: any) => {
-    saveNotes(data, highlightDays);
+    if (startDate && endDate) {
+      saveNotes(data, highlightDays, { start: startDate, end: endDate });
+    }
   };
+
+  const formatDate = (date: Date | null) =>
+    date
+      ? new Intl.DateTimeFormat("pt-BR", {
+          day: "numeric",
+          month: "long",
+        }).format(date)
+      : "";
 
   return (
     <Container>
@@ -32,6 +47,50 @@ export default function RegisterNotes() {
           congregação.
         </Text>
       </View>
+
+      <View className="flex-row gap-4 mt-4 mb-6">
+        <TouchableOpacity
+          className="flex-1 bg-white rounded-lg p-3"
+          onPress={() => setShowStart(true)}
+        >
+          <Text className="text-blue-900 font-bold">
+            {startDate ? formatDate(startDate) : "Data início"}
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          className="flex-1 bg-white rounded-lg p-3"
+          onPress={() => setShowEnd(true)}
+        >
+          <Text className="text-blue-900 font-bold">
+            {endDate ? formatDate(endDate) : "Data fim"}
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      {showStart && (
+        <DateTimePicker
+          value={startDate || new Date()}
+          mode="date"
+          display="calendar"
+          onChange={(_, date) => {
+            setShowStart(false);
+            if (date) setStartDate(date);
+          }}
+        />
+      )}
+
+      {showEnd && (
+        <DateTimePicker
+          value={endDate || new Date()}
+          mode="date"
+          display="calendar"
+          onChange={(_, date) => {
+            setShowEnd(false);
+            if (date) setEndDate(date);
+          }}
+        />
+      )}
 
       <DayBox
         dayLabel="Segunda-feira"

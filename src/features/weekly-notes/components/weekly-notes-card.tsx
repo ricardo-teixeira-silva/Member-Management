@@ -5,6 +5,12 @@ import { WeeklyNoteItem } from "./weekly-note-item";
 
 export const WeeklyNotesCard = () => {
   const notes = useWeeklyNotesStore((state) => state.notes);
+  const validPeriod = useWeeklyNotesStore((state) => state.validPeriod);
+
+  const formatDate = (date: Date) =>
+    new Intl.DateTimeFormat("pt-BR", { day: "numeric", month: "long" }).format(
+      date,
+    );
 
   return (
     <View className="rounded-[28px] bg-[#23408E] p-6 shadow-lg gap-2">
@@ -25,7 +31,9 @@ export const WeeklyNotesCard = () => {
         <View className="flex-row items-center">
           <Feather name="clock" size={18} color="#FFFFFF" />
           <Text className="ml-3 py-2 font-inter_medium text-sm text-white">
-            Válido: 22 a 28 de Outubro
+            {validPeriod
+              ? `Válido: ${formatDate(validPeriod.start)} a ${formatDate(validPeriod.end)}`
+              : "Período não definido"}
           </Text>
         </View>
       </View>

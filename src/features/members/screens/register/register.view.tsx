@@ -8,7 +8,7 @@ import {
 import { ListSelectTypes } from "@/shared/componentes/forms/select";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useForm } from "react-hook-form";
-import { Text, View } from "react-native";
+import { Alert, Text, View } from "react-native";
 
 export default function Register() {
   const {
@@ -53,21 +53,18 @@ export default function Register() {
           control={control}
           placeholder="Ex: Claudio Silva de oliveira"
         />
-        <Input
-          name="position"
-          label="Cargo"
-          control={control}
-          placeholder="Ex: Diácono"
-        />
         <Select
           control={control}
           name="position"
-          label="Sexo"
+          label="Cargo"
           data={mockData}
         />
         <GenderSelector control={control} name="sexo" label="Sexo" />
         <SectionDivider />
-        <Button title="Salvar Cadastro" />
+        <Button
+          title="Salvar Cadastro"
+          onPress={() => Alert.alert("Função esta sendo desenvolvida!")}
+        />
       </View>
     </Container>
   );

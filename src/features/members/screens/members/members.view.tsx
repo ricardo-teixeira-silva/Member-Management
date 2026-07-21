@@ -9,17 +9,18 @@ import * as Sharing from "expo-sharing";
 import ViewShot from "react-native-view-shot";
 
 const membro = {
-  name: "João Silva",
+  name: "Claudio Roberto Silva",
   role: "Presbítero",
   age: 35,
   phone: "(11) 99999-9999",
   email: "joao@email.com",
   baptism: "15/04/2018",
 
-  photo: "https://i.pravatar.cc/300?img=12",
+  photo:
+    "https://pqhaqmgrwfkaprmxhnbw.supabase.co/storage/v1/object/public/member-photos/claudio_presbitero.png",
 
   church: {
-    name: "Igreja Batista Central",
+    name: "Igreja Missionária Livre dos Apóstolos",
     logo: "https://cdn-icons-png.flaticon.com/512/3064/3064197.png",
   },
 };
@@ -59,7 +60,10 @@ export default function Members() {
         </Text>
       </View>
       <View className="gap-4">
-        <Button title="pdf" onPress={() => generateMemberPDF(membro)} />
+        <Button
+          title="Compartilhar lista de presença .pdf"
+          onPress={() => generateMemberPDF(membro)}
+        />
         <Button title="Exportar tela inteira (PNG)" onPress={exportImage} />
         <ViewShot
           ref={viewRef}

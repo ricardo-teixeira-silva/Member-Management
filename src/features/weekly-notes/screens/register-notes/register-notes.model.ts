@@ -3,8 +3,13 @@ import { router } from "expo-router";
 
 export const useRegisterNotesModel = () => {
   const setNotes = useWeeklyNotesStore((state) => state.setNotes);
+  const setValidPeriod = useWeeklyNotesStore((state) => state.setValidPeriod);
 
-  const saveNotes = (data: any, highlightDays: Record<string, boolean>) => {
+  const saveNotes = (
+    data: any,
+    highlightDays: Record<string, boolean>,
+    validPeriod: { start: Date; end: Date },
+  ) => {
     const notes = [
       {
         day: "2ª",
@@ -58,6 +63,7 @@ export const useRegisterNotesModel = () => {
     ];
 
     setNotes(notes);
+    setValidPeriod(validPeriod);
     router.navigate("/(stack)/weekly-notes");
   };
 
