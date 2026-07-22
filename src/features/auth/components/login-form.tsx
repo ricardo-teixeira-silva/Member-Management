@@ -1,26 +1,31 @@
 import { Button, Input } from "@/shared/componentes";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Octicons from "@expo/vector-icons/Octicons";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Keyboard, View } from "react-native";
+import { LoginRequestTypes, loginRequestSchema } from "../schemas/login.schema";
 import { useSignIn } from "../screens/login/login.model";
-import { LoginFormData } from "../types/auth.types";
 import { FeedbackModal } from "./feedback-modal";
 
 export const LoginForm = () => {
-  const { login, loading } = useSignIn();
+  const { login, loading, isError, reset } = useSignIn();
 
   const {
     handleSubmit,
     control,
     formState: { isValid },
-  } = useForm<LoginFormData>({
+  } = useForm<LoginRequestTypes>({
     mode: "onChange",
+    resolver: zodResolver(loginRequestSchema),
   });
 
-  const onSubmit = (data: LoginFormData) => {
+  const onSubmit = ({ email, password }: LoginRequestTypes) => {
     Keyboard.dismiss();
-    login(data);
+    login({
+      email: email.trim(),
+      password: password.trim(),
+    });
   };
 
   return (
@@ -47,7 +52,7 @@ export const LoginForm = () => {
         onPress={handleSubmit(onSubmit)}
         disabled={!isValid}
       />
-      <FeedbackModal modalVisible={false} onCloseModal={() => {}} />
+      <FeedbackModal modalVisible={isError} onCloseModal={reset} />
     </View>
   );
 };

@@ -5,61 +5,39 @@ export const useRegisterNotesModel = () => {
   const setNotes = useWeeklyNotesStore((state) => state.setNotes);
   const setValidPeriod = useWeeklyNotesStore((state) => state.setValidPeriod);
 
+  const DEFAULT_CULTO = "Sem programação";
+  const DEFAULT_GRUPO = "Não foi escalado grupos ou obreiros";
+
+  const withDefaults = (value: unknown, fallback: string) => {
+    const trimmed = typeof value === "string" ? value.trim() : "";
+    return trimmed || fallback;
+  };
+
   const saveNotes = (
     data: any,
     highlightDays: Record<string, boolean>,
     validPeriod: { start: Date; end: Date },
   ) => {
+    const buildNote = (
+      day: string,
+      weekDay: string,
+      key: string,
+    ) => ({
+      day,
+      weekDay,
+      title: withDefaults(data[`${key}_culto`], DEFAULT_CULTO),
+      subtitle: withDefaults(data[`${key}_grupo`], DEFAULT_GRUPO),
+      highlight: highlightDays[key] || false,
+    });
+
     const notes = [
-      {
-        day: "2ª",
-        weekDay: "FEIRA",
-        title: data["2ª_feira_culto"],
-        subtitle: data["2ª_feira_grupo"],
-        highlight: highlightDays["2ª_feira"] || false,
-      },
-      {
-        day: "3ª",
-        weekDay: "FEIRA",
-        title: data["3ª_feira_culto"],
-        subtitle: data["3ª_feira_grupo"],
-        highlight: highlightDays["3ª_feira"] || false,
-      },
-      {
-        day: "4ª",
-        weekDay: "FEIRA",
-        title: data["4ª_feira_culto"],
-        subtitle: data["4ª_feira_grupo"],
-        highlight: highlightDays["4ª_feira"] || false,
-      },
-      {
-        day: "5ª",
-        weekDay: "FEIRA",
-        title: data["5ª_feira_culto"],
-        subtitle: data["5ª_feira_grupo"],
-        highlight: highlightDays["5ª_feira"] || false,
-      },
-      {
-        day: "6ª",
-        weekDay: "FEIRA",
-        title: data["6ª_feira_culto"],
-        subtitle: data["6ª_feira_grupo"],
-        highlight: highlightDays["6ª_feira"] || false,
-      },
-      {
-        day: "SAB",
-        weekDay: "FIM SEM",
-        title: data["sab_culto"],
-        subtitle: data["sab_grupo"],
-        highlight: highlightDays["sab"] || false,
-      },
-      {
-        day: "DOM",
-        weekDay: "CELEBRE",
-        title: data["dom_culto"],
-        subtitle: data["dom_grupo"],
-        highlight: highlightDays["dom"] || false,
-      },
+      buildNote("2ª", "FEIRA", "2ª_feira"),
+      buildNote("3ª", "FEIRA", "3ª_feira"),
+      buildNote("4ª", "FEIRA", "4ª_feira"),
+      buildNote("5ª", "FEIRA", "5ª_feira"),
+      buildNote("6ª", "FEIRA", "6ª_feira"),
+      buildNote("SAB", "FIM SEM", "sab"),
+      buildNote("DOM", "CELEBRE", "dom"),
     ];
 
     setNotes(notes);

@@ -1,4 +1,4 @@
-import { useCurrentMember } from "@/shared/hooks/useCurrentMember";
+import { useCurrentMember } from "@/shared/store/currentMember";
 import { Image, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -6,9 +6,7 @@ export const Header = () => {
   const insets = useSafeAreaInsets();
   const HEADER_TOP_OFFSET = 12;
 
-  const member = useCurrentMember();
-
-  console.log({ member });
+  const member = useCurrentMember((s) => s.member);
 
   return (
     <View

@@ -1,16 +1,17 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useCurrentMember } from "@/shared/store/currentMember";
+import { useMutation } from "@tanstack/react-query";
 import { router } from "expo-router";
 import { signIn } from "../../services/auth.services";
 import { SignInParams } from "../../types/auth.types";
 
 export function useSignIn() {
-  const queryClient = useQueryClient();
+  const setMember = useCurrentMember((s) => s.setMember);
 
   const mutation = useMutation({
     mutationFn: ({ email, password }: SignInParams) => signIn(email, password),
 
     onSuccess: async (data) => {
-      queryClient.setQueryData(["current-member"], data.member);
+      setMember(data.member);
       router.replace("/success");
     },
     onError: (error) => {
@@ -21,5 +22,7 @@ export function useSignIn() {
   return {
     login: mutation.mutate,
     loading: mutation.isPending,
+    isError: mutation.isError,
+    reset: mutation.reset,
   };
 }

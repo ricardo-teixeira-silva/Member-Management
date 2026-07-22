@@ -4,11 +4,13 @@ import { useRef } from "react";
 import { Text, View } from "react-native";
 import ViewShot from "react-native-view-shot";
 import { WeeklyNotesCard } from "../../components/weekly-notes-card";
+import { useWeeklyNotesModel } from "./weekly-notes.model";
 
 export default function WeeklyNotes() {
   const viewRef = useRef<ViewShot>(null);
 
   const { exportImage } = useExportImage();
+  const { goBack } = useWeeklyNotesModel();
   return (
     <Container>
       <View className="gap-1">
@@ -30,6 +32,7 @@ export default function WeeklyNotes() {
         <WeeklyNotesCard />
       </ViewShot>
       <Button title="Compartilhar" onPress={() => exportImage(viewRef)} />
+      <Button title="Voltar" variant="outline" onPress={goBack} />
     </Container>
   );
 }

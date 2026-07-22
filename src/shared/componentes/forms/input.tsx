@@ -37,9 +37,11 @@ export const Input = <T extends FieldValues>({
       control={control}
       render={({ field, fieldState }) => (
         <View>
-          <Text className="text-gray-700 text-sm font-semibold pl-1">
-            {label}
-          </Text>
+          {label && (
+            <Text className="text-gray-700 text-sm font-semibold pl-1">
+              {label}
+            </Text>
+          )}
           <View className="bg-[#EDEEEF] rounded-xl h-14 px-4 flex-row items-center gap-3">
             {iconLeft}
             <TextInput
@@ -74,3 +76,4 @@ export const Input = <T extends FieldValues>({
     />
   );
 };
+
