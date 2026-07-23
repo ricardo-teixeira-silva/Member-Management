@@ -3,7 +3,3 @@ export interface SignInParams {
   password: string;
 }
 
-export type LoginFormData = {
-  email: string;
-  password: string;
-};

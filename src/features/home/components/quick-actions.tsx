@@ -30,7 +30,7 @@ export const QuickActions = () => {
               color="#16A34A"
             />
           }
-          onPress={() => router.navigate("/(tabs)/members")}
+          onPress={() => router.navigate("/(tabs)/attendance")}
         />
         <QuickActionItem
           title="Criar Notas Semanais"
@@ -48,7 +48,7 @@ export const QuickActions = () => {
               color="#7C3AED"
             />
           }
-          onPress={() => {}}
+          onPress={() => router.navigate("/(tabs)/members")}
         />
       </View>
     </View>

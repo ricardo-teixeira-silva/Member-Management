@@ -1,5 +1,3 @@
-import { Text } from "react-native";
-
-export default function AttendanceScreens() {
-  return <Text>Presença</Text>;
-}
+import Attendance from "@/features/attendance/screens/attendance.view";
+const AttendenceScreen = () => <Attendance />;
+export default AttendenceScreen;

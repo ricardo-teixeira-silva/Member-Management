@@ -1,40 +1,33 @@
 // RegisterNotes.tsx
-import { Button, Container } from "@/shared/componentes";
-import DateTimePicker from "@react-native-community/datetimepicker";
+import { Button, Container, FeedbackModal } from "@/shared/componentes";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, View } from "react-native";
+import { DatePickerField } from "../../components/date-picker-field";
 import { DayBox } from "../../components/day-box";
 import { useRegisterNotesModel } from "./register-notes.model";
 
 export default function RegisterNotes() {
   const { handleSubmit, control } = useForm({ mode: "onChange" });
-  const { saveNotes } = useRegisterNotesModel();
+  const { saveNotes, goBack } = useRegisterNotesModel();
   const [highlightDays, setHighlightDays] = useState<Record<string, boolean>>(
     {},
   );
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
-  const [showStart, setShowStart] = useState(false);
-  const [showEnd, setShowEnd] = useState(false);
+  const [showDatesAlert, setShowDatesAlert] = useState(false);
 
   const handleHighlightChange = (dayKey: string, value: boolean) => {
     setHighlightDays((prev) => ({ ...prev, [dayKey]: value }));
   };
 
   const onSubmit = (data: any) => {
-    if (startDate && endDate) {
-      saveNotes(data, highlightDays, { start: startDate, end: endDate });
+    if (!startDate || !endDate) {
+      setShowDatesAlert(true);
+      return;
     }
+    saveNotes(data, highlightDays, { start: startDate, end: endDate });
   };
-
-  const formatDate = (date: Date | null) =>
-    date
-      ? new Intl.DateTimeFormat("pt-BR", {
-          day: "numeric",
-          month: "long",
-        }).format(date)
-      : "";
 
   return (
     <Container>
@@ -49,48 +42,19 @@ export default function RegisterNotes() {
       </View>
 
       <View className="flex-row gap-4 mt-4 mb-6">
-        <TouchableOpacity
-          className="flex-1 bg-white rounded-lg p-3"
-          onPress={() => setShowStart(true)}
-        >
-          <Text className="text-blue-900 font-bold">
-            {startDate ? formatDate(startDate) : "Data início"}
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          className="flex-1 bg-white rounded-lg p-3"
-          onPress={() => setShowEnd(true)}
-        >
-          <Text className="text-blue-900 font-bold">
-            {endDate ? formatDate(endDate) : "Data fim"}
-          </Text>
-        </TouchableOpacity>
+        <DatePickerField
+          label="Data início"
+          value={startDate}
+          placeholder="Selecionar"
+          onChange={setStartDate}
+        />
+        <DatePickerField
+          label="Data fim"
+          value={endDate}
+          placeholder="Selecionar"
+          onChange={setEndDate}
+        />
       </View>
-
-      {showStart && (
-        <DateTimePicker
-          value={startDate || new Date()}
-          mode="date"
-          display="calendar"
-          onChange={(_, date) => {
-            setShowStart(false);
-            if (date) setStartDate(date);
-          }}
-        />
-      )}
-
-      {showEnd && (
-        <DateTimePicker
-          value={endDate || new Date()}
-          mode="date"
-          display="calendar"
-          onChange={(_, date) => {
-            setShowEnd(false);
-            if (date) setEndDate(date);
-          }}
-        />
-      )}
 
       <DayBox
         dayLabel="Segunda-feira"
@@ -149,7 +113,15 @@ export default function RegisterNotes() {
       />
 
       <Button title="Salvar Programação" onPress={handleSubmit(onSubmit)} />
-      <Button title="Cancelar" />
+      <Button title="Cancelar e Voltar" variant="indigoSoft" onPress={goBack} />
+
+      <FeedbackModal
+        visible={showDatesAlert}
+        title="Datas obrigatórias"
+        message="Selecione a data de início e a data de fim antes de salvar a programação."
+        buttonTitle="Entendi"
+        onClose={() => setShowDatesAlert(false)}
+      />
     </Container>
   );
 }
