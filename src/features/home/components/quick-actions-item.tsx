@@ -11,7 +11,7 @@ export const QuickActionItem = ({ title, icon, onPress }: QuickActionProps) => {
         {icon}
       </View>
 
-      <Text className="text-center font-inter_semibold text-base leading-6 text-slate-700">
+      <Text className="text-center font-medium text-base leading-6 text-slate-500">
         {title}
       </Text>
     </TouchableOpacity>

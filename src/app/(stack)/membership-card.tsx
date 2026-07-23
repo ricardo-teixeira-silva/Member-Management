@@ -1,4 +1,5 @@
-import Membership from "@/features/profile/screens/membership.view";
+import Membership from "@/features/profile/screens/membership/membership.view";
+
 export const MembershipCardScreen = () => {
   return <Membership />;
 };

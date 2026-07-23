@@ -12,9 +12,7 @@ export interface QuickActionProps {
 export const QuickActions = () => {
   return (
     <View className="gap-5">
-      <Text className="text-xl font-inter_bold text-slate-900">
-        Ações rápidas
-      </Text>
+      <Text className="text-xl font-bold text-slate-900">Ações rápidas</Text>
       <View className="flex-row flex-wrap justify-between gap-y-4">
         <QuickActionItem
           title="Cadastrar Membro"
@@ -30,7 +28,7 @@ export const QuickActions = () => {
               color="#16A34A"
             />
           }
-          onPress={() => router.navigate("/(tabs)/attendance")}
+          onPress={() => router.navigate("/(stack)/attendance")}
         />
         <QuickActionItem
           title="Criar Notas Semanais"

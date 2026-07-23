@@ -1,14 +1,9 @@
 import { usePhotoPicker } from "@/shared/hooks/usePhotoPicker";
+import { useMutation } from "@tanstack/react-query";
 import { router } from "expo-router";
 import { useForm } from "react-hook-form";
-
-type RegisterFormData = {
-  photo?: string;
-  name: string;
-  church: string;
-  position: string;
-  sexo: string;
-};
+import { createMember } from "../../services/members.services";
+import { RegisterFormData } from "../../types/members";
 
 export const useRegisterModel = () => {
   const {
@@ -25,6 +20,9 @@ export const useRegisterModel = () => {
       church: "",
       position: "",
       sexo: "",
+      birthDate: null,
+      baptismDate: null,
+      ordinationDate: null,
     },
   });
 
@@ -42,22 +40,18 @@ export const useRegisterModel = () => {
     });
   };
 
+  const mutation = useMutation({
+    mutationFn: createMember,
+    onSuccess: () => {
+      console.log("Salvo com sucesso!!!");
+    },
+    onError: (err) => {
+      console.error("Erro ao criar membro:", err);
+    },
+  });
+
   const onSubmit = (data: RegisterFormData) => {
-    const payload = {
-      photo: data.photo,
-      name: data.name,
-      church: data.church,
-      position: data.position,
-      gender: data.sexo,
-    };
-
-    console.log("Payload:", payload);
-
-    /*
-    futuramente:
-
-    await memberService.create(payload);
-    */
+    mutation.mutate(data);
   };
 
   const goBack = () => {

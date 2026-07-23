@@ -4,7 +4,11 @@ export interface Member {
   name: string;
   photo: string | null;
   position: string;
+  sex: string;
   church: string;
+  birthDate: string;
+  baptismDate: string;
+  ordinationDate: string;
 }
 
 export interface MemberWithPhoto extends Member {

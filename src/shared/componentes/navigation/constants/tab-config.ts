@@ -19,9 +19,9 @@ export const TAB_CONFIG: TabConfig = {
     inactiveIcon: "notebook-edit-outline",
   },
 
-  attendance: {
-    label: "Presença",
-    activeIcon: "clipboard-list",
-    inactiveIcon: "clipboard-list-outline",
+  profile: {
+    label: "Perfil",
+    activeIcon: "account-circle",
+    inactiveIcon: "account-circle-outline",
   },
 };

@@ -1,7 +1,7 @@
 import { Feather } from "@expo/vector-icons";
 import { Image, Text, View } from "react-native";
 import logo from "../assets/images/logo.png";
-import type { MembershipData } from "../screens/membership.model";
+import type { MembershipData } from "../screens/membership/membership.model";
 
 type Props = {
   data: MembershipData;

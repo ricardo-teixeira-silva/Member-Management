@@ -21,8 +21,8 @@ export default function Layout() {
         options={{ title: "Membros", header: () => <Header /> }}
       />
       <Tabs.Screen
-        name="attendance"
-        options={{ title: "Presença", header: () => <Header /> }}
+        name="profile"
+        options={{ title: "Perfil", header: () => <Header /> }}
       />
     </Tabs>
   );

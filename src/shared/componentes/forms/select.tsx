@@ -37,12 +37,12 @@ export const Select = <T extends FieldValues>({
 
   const renderItem = (
     { item }: ListRenderItemInfo<ListSelectTypes>,
-    onChange: (value: { name: string; value: string | number }) => void,
+    onChange: (value: string | number) => void,
   ) => (
     <TouchableOpacity
       className="flex-row items-center justify-between h-14"
       onPress={() => {
-        onChange({ name: item.name, value: item.value });
+        onChange(item.value);
         setOpenModal(false);
         setListValues(data);
       }}
@@ -85,7 +85,7 @@ export const Select = <T extends FieldValues>({
               placeholderTextColor="#8C9AAD"
               placeholder={placeholder}
               editable={false}
-              value={field.value?.name ?? ""}
+              value={field.value ?? ""}
             />
             <View className="w-10 h-10 items-center justify-center">
               <Ionicons name="chevron-down" size={24} color="#737687" />

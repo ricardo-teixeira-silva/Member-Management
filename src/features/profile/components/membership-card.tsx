@@ -6,7 +6,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
-import type { MembershipData } from "../screens/membership.model";
+import type { MembershipData } from "../screens/membership/membership.model";
 import { MembershipCardBack } from "./membership-card-back";
 import { MembershipCardFront } from "./membership-card-front";
 

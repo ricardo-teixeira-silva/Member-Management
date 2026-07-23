@@ -8,7 +8,7 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { MembershipCard } from "../components/membership-card";
+import { MembershipCard } from "../../components/membership-card";
 import { useMembershipModel } from "./membership.model";
 
 export default function Membership() {
@@ -24,7 +24,7 @@ export default function Membership() {
       edges={["top", "bottom"]}
     >
       <StatusBar style="dark" />
-      <View className="flex-row items-center justify-between px-5 py-0">
+      <View className="flex-row items-center justify-between px-5 py-4">
         <TouchableOpacity
           onPress={goBack}
           className="w-10 h-10 rounded-full items-center justify-center"

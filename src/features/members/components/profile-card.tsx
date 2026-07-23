@@ -6,7 +6,7 @@ type ProfileCardProps = {
   position: string;
   url: string;
   sex: string;
-  checked?: boolean | undefined;
+  checked: boolean | undefined;
   onPress?: () => void;
 };
 
@@ -70,9 +70,7 @@ export const ProfileCard = ({
           }
         `}
         >
-          {checked && (
-            <MaterialCommunityIcons name="check" size={16} color="#FFFFFF" />
-          )}
+          <MaterialCommunityIcons name="check" size={16} color="#FFFFFF" />
         </View>
       )}
     </TouchableOpacity>

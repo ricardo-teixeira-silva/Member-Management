@@ -7,6 +7,8 @@ export default function WeeklyNotesLayout() {
       screenOptions={{
         header: () => <Header />,
       }}
-    />
+    >
+      <Stack.Screen name="membership-card" options={{ headerShown: false }} />
+    </Stack>
   );
 }

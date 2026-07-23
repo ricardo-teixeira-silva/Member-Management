@@ -1,6 +1,6 @@
 import { Feather } from "@expo/vector-icons";
 import { Text, View } from "react-native";
-import type { MembershipData } from "../screens/membership.model";
+import type { MembershipData } from "../screens/membership/membership.model";
 
 type Props = {
   data: MembershipData;

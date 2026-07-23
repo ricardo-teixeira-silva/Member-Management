@@ -1,3 +1,4 @@
+import { ReactElement } from "react";
 import {
   ActivityIndicator,
   Text,
@@ -17,6 +18,7 @@ type ButtonProps = TouchableOpacityProps & {
   loading?: boolean;
   textLoading?: string;
   variant?: ButtonVariant;
+  iconLeft?: ReactElement;
 };
 
 const containerByVariant: Record<ButtonVariant, string> = {
@@ -49,6 +51,7 @@ export const Button = ({
   textLoading = "Carregando...",
   disabled,
   variant = "primary",
+  iconLeft,
   ...rest
 }: ButtonProps) => {
   const isDisabled = loading || disabled;
@@ -67,8 +70,13 @@ export const Button = ({
       disabled={isDisabled}
       {...rest}
     >
-      {loading && <ActivityIndicator color={spinnerColorByVariant[variant]} />}
-
+      {loading && (
+        <ActivityIndicator
+          color={spinnerColorByVariant[variant]}
+          size="small"
+        />
+      )}
+      {!loading && iconLeft}
       <Text className={`${textByVariant[variant]} font-medium`}>
         {renderDinamicText()}
       </Text>

@@ -21,20 +21,20 @@ export default function Members() {
           Gestão de fiéis e liderança
         </Text>
       </View>
-      <View className="gap-4">
-        <FlatList
-          data={members}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <ProfileCard
-              name={item.name}
-              position={item.position}
-              url={item.photoUrl}
-              sex={item.sex}
-            />
-          )}
-        />
-      </View>
+      <FlatList
+        data={members}
+        keyExtractor={(item) => item.id.toString()}
+        contentContainerClassName="gap-4"
+        renderItem={({ item }) => (
+          <ProfileCard
+            name={item.name}
+            position={item.position}
+            url={item.photoUrl}
+            sex={item.sex}
+            checked={false}
+          />
+        )}
+      />
     </Container>
   );
 }

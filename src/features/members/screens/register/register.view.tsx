@@ -5,6 +5,7 @@ import {
   SectionDivider,
   Select,
 } from "@/shared/componentes/forms";
+import { SelectDate } from "@/shared/componentes/forms/select-date";
 import { PhotoPicker } from "@/shared/componentes/photo-picker";
 import { FontAwesome6, MaterialIcons } from "@expo/vector-icons";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
@@ -49,6 +50,23 @@ export default function Register() {
           label="Cargo"
           data={memberRoles}
           iconLeft={<FontAwesome5 name="hands" size={20} color="#374151" />}
+        />
+        <SelectDate
+          control={control}
+          name="birthDate"
+          label="Data de nascimento"
+        />
+
+        <SelectDate
+          control={control}
+          name="baptismDate"
+          label="Data do batismo"
+        />
+
+        <SelectDate
+          control={control}
+          name="ordinationDate"
+          label="Data da consagração"
         />
         <GenderSelector control={control} name="sexo" label="Sexo" />
         <SectionDivider />

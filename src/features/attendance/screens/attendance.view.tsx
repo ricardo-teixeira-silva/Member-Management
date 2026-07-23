@@ -58,6 +58,7 @@ export default function Attendance() {
           <FlatList
             data={members}
             keyExtractor={(item) => item.id.toString()}
+            contentContainerClassName="gap-4"
             renderItem={({ item }) => (
               <ProfileCard
                 name={item.name}

@@ -31,6 +31,7 @@ export function useAttendance() {
     console.log("Lista de presença:");
     alert(
       `Função em desenvolvimento, \n mas você selecionou: \n\n\n` +
+        `total: ${presentMembers.length}  -----  ` +
         JSON.stringify({ presentMembers }),
     );
     console.log(presentMembers);
