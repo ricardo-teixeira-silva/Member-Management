@@ -5,36 +5,17 @@ import {
   SectionDivider,
   Select,
 } from "@/shared/componentes/forms";
-import { ListSelectTypes } from "@/shared/componentes/forms/select";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useForm } from "react-hook-form";
-import { Alert, Text, View } from "react-native";
+import { PhotoPicker } from "@/shared/componentes/photo-picker";
+import { FontAwesome6, MaterialIcons } from "@expo/vector-icons";
+import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import { Text, View } from "react-native";
+import { churchRoles } from "../../utils/church-roles";
+import { memberRoles } from "../../utils/member-roles";
+import { useRegisterModel } from "./register.model";
 
 export default function Register() {
-  const {
-    handleSubmit,
-    control,
-    formState: { isValid },
-  } = useForm({
-    mode: "onChange",
-  });
-
-  const mockData: Array<ListSelectTypes> = [
-    {
-      icon: (
-        <MaterialCommunityIcons name="window-close" size={24} color="black" />
-      ),
-      name: "Diacono",
-      value: "Diacono",
-    },
-    {
-      icon: (
-        <MaterialCommunityIcons name="window-close" size={24} color="black" />
-      ),
-      name: "Pastor",
-      value: "Pastor",
-    },
-  ];
+  const { control, photo, pickPhoto, goBack, isValid, handleSubmit, onSubmit } =
+    useRegisterModel();
 
   return (
     <Container>
@@ -47,24 +28,32 @@ export default function Register() {
         </Text>
       </View>
       <View className="gap-4">
+        <PhotoPicker image={photo} onPress={pickPhoto} />
         <Input
           name="name"
           label="Nome completo"
           control={control}
           placeholder="Ex: Claudio Silva de oliveira"
+          iconLeft={<FontAwesome6 name="user-tie" size={24} color="#374151" />}
+        />
+        <Select
+          control={control}
+          name="church"
+          label="Ministério"
+          data={churchRoles}
+          iconLeft={<MaterialIcons name="church" size={24} color="#374151" />}
         />
         <Select
           control={control}
           name="position"
           label="Cargo"
-          data={mockData}
+          data={memberRoles}
+          iconLeft={<FontAwesome5 name="hands" size={20} color="#374151" />}
         />
         <GenderSelector control={control} name="sexo" label="Sexo" />
         <SectionDivider />
-        <Button
-          title="Salvar Cadastro"
-          onPress={() => Alert.alert("Função esta sendo desenvolvida!")}
-        />
+        <Button title="Salvar Cadastro" onPress={handleSubmit(onSubmit)} />
+        <Button title="Cancelar" variant="indigoSoft" onPress={goBack} />
       </View>
     </Container>
   );

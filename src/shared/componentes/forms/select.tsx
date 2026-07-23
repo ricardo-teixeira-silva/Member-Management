@@ -40,7 +40,7 @@ export const Select = <T extends FieldValues>({
     onChange: (value: { name: string; value: string | number }) => void,
   ) => (
     <TouchableOpacity
-      className="flex-row items-center justify-between h-12"
+      className="flex-row items-center justify-between h-14"
       onPress={() => {
         onChange({ name: item.name, value: item.value });
         setOpenModal(false);
@@ -49,7 +49,7 @@ export const Select = <T extends FieldValues>({
     >
       <View className="flex-row items-center gap-4">
         {item.icon}
-        <Text>{item.name}</Text>
+        <Text className="text-lg font-medium text-gray-700">{item.name}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -75,7 +75,10 @@ export const Select = <T extends FieldValues>({
               {label}
             </Text>
           )}
-          <View className="bg-[#EDEEEF] rounded-xl h-14 px-4 flex-row items-center gap-3">
+          <TouchableOpacity
+            className="bg-[#EDEEEF] rounded-xl h-14 px-4 flex-row items-center gap-3"
+            onPress={() => setOpenModal(true)}
+          >
             {iconLeft}
             <TextInput
               className="text-color_gray flex-1 w-full"
@@ -84,20 +87,20 @@ export const Select = <T extends FieldValues>({
               editable={false}
               value={field.value?.name ?? ""}
             />
-            <TouchableOpacity
-              className="w-10 h-10 items-center justify-center"
-              onPress={() => setOpenModal(true)}
-            >
+            <View className="w-10 h-10 items-center justify-center">
               <Ionicons name="chevron-down" size={24} color="#737687" />
-            </TouchableOpacity>
-          </View>
+            </View>
+          </TouchableOpacity>
           {fieldState.error?.message && (
             <Text className="text-red-400 text-[10px] px-2">
               {fieldState.error.message}
             </Text>
           )}
           <Modal transparent animationType="slide" visible={openModal}>
-            <View className="flex-1 justify-center items-center">
+            <View
+              className="flex-1 justify-center items-center"
+              style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
+            >
               <View className="w-[90%] h-[70%] bg-white rounded-xl">
                 <View className="p-4 flex-row items-center justify-between border-b border-[#F0F0F0]">
                   <Text className="text-sm font-semibold">
@@ -122,7 +125,7 @@ export const Select = <T extends FieldValues>({
                   data={listValues}
                   renderItem={(info) => renderItem(info, field.onChange)}
                   contentContainerStyle={{
-                    gap: 4,
+                    gap: 7,
                     paddingHorizontal: 22,
                     paddingVertical: 16,
                   }}

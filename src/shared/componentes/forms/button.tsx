@@ -5,7 +5,12 @@ import {
   TouchableOpacityProps,
 } from "react-native";
 
-type ButtonVariant = "primary" | "yellow" | "outline" | "lightblue";
+type ButtonVariant =
+  | "primary"
+  | "yellow"
+  | "outline"
+  | "lightblue"
+  | "indigoSoft";
 
 type ButtonProps = TouchableOpacityProps & {
   title: string;
@@ -16,9 +21,10 @@ type ButtonProps = TouchableOpacityProps & {
 
 const containerByVariant: Record<ButtonVariant, string> = {
   primary: "bg-color_blue",
-  yellow: "bg-color_yellow",
+  yellow: "bg-color_ligthyellow",
   outline: "bg-transparent border-2 border-color_blue",
   lightblue: "bg-color_lightblue",
+  indigoSoft: "bg-indigo-100",
 };
 
 const textByVariant: Record<ButtonVariant, string> = {
@@ -26,6 +32,7 @@ const textByVariant: Record<ButtonVariant, string> = {
   yellow: "text-white",
   outline: "text-color_blue",
   lightblue: "text-white",
+  indigoSoft: "text-indigo-700",
 };
 
 const spinnerColorByVariant: Record<ButtonVariant, string> = {
@@ -33,6 +40,7 @@ const spinnerColorByVariant: Record<ButtonVariant, string> = {
   yellow: "#ffffff",
   outline: "#00236F",
   lightblue: "#ffffff",
+  indigoSoft: "#4338CA", // Indigo 700
 };
 
 export const Button = ({
@@ -59,14 +67,9 @@ export const Button = ({
       disabled={isDisabled}
       {...rest}
     >
-      {loading && (
-        <ActivityIndicator
-          size="large"
-          color={spinnerColorByVariant[variant]}
-        />
-      )}
+      {loading && <ActivityIndicator color={spinnerColorByVariant[variant]} />}
 
-      <Text className={`${textByVariant[variant]} font-inter_bold`}>
+      <Text className={`${textByVariant[variant]} font-medium`}>
         {renderDinamicText()}
       </Text>
     </TouchableOpacity>

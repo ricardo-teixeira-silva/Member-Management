@@ -5,4 +5,5 @@ export const colors = {
   color_darkblue: "#0B1C30",
   color_silver: "#444651",
   color_yellow: "#FEA619",
+  color_ligthyellow: "#F4B400",
 };

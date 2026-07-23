@@ -1,53 +1,15 @@
-import { Button, Container } from "@/shared/componentes";
-import React, { useRef } from "react";
+import { Container } from "@/shared/componentes";
+import React from "react";
 import { FlatList, Text, View } from "react-native";
 import { ProfileCard } from "../../components/profile-card";
-import { generateMemberPDF } from "../../pdf/generateMemberPDF";
 import { useMembers } from "./members.model";
-
-import * as Sharing from "expo-sharing";
-import ViewShot from "react-native-view-shot";
-
-const membro = {
-  name: "Claudio Roberto Silva",
-  role: "Presbítero",
-  age: 35,
-  phone: "(11) 99999-9999",
-  email: "joao@email.com",
-  baptism: "15/04/2018",
-
-  photo:
-    "https://pqhaqmgrwfkaprmxhnbw.supabase.co/storage/v1/object/public/member-photos/claudio_presbitero.png",
-
-  church: {
-    name: "Igreja Missionária Livre dos Apóstolos",
-    logo: "https://cdn-icons-png.flaticon.com/512/3064/3064197.png",
-  },
-};
 
 export default function Members() {
   const { members, isLoadingMembers } = useMembers();
 
-  const viewRef = useRef<ViewShot>(null);
-
   if (isLoadingMembers) {
     return <Text>Loading...</Text>;
   }
-
-  // 📸 EXPORTAR TELA INTEIRA
-  const exportImage = async () => {
-    try {
-      if (!viewRef.current?.capture) {
-        console.log("ViewShot não disponível");
-        return;
-      }
-      const uri = await viewRef.current.capture();
-
-      await Sharing.shareAsync(uri);
-    } catch (error) {
-      console.error("Erro ao exportar:", error);
-    }
-  };
 
   return (
     <Container>
@@ -60,71 +22,17 @@ export default function Members() {
         </Text>
       </View>
       <View className="gap-4">
-        <Button
-          title="Compartilhar lista de presença .pdf"
-          onPress={() => generateMemberPDF(membro)}
-        />
-        <Button title="Exportar tela inteira (PNG)" onPress={exportImage} />
-        <ViewShot
-          ref={viewRef}
-          options={{ format: "png", quality: 1, result: "tmpfile" }}
-          style={{ backgroundColor: "#fff" }}
-        >
-          <FlatList
-            data={members}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => (
-              <ProfileCard
-                name={item.name}
-                position={item.position}
-                url={item.photoUrl}
-                sex={item.sex}
-              />
-            )}
-          />
-
-          <ProfileCard
-            name="Betania Silva Souza"
-            position="Missionária"
-            url="https://i.pravatar.cc/150?img=5"
-            sex="Feminino"
-          />
-          <ProfileCard
-            name="Claudio Silva"
-            position="Presbítero"
-            url="https://i.pravatar.cc/150?img=53"
-            sex="Masculino"
-          />
-          <ProfileCard
-            name="Adriano Santos"
-            position="Presbítero"
-            url="https://i.pravatar.cc/150?img=54"
-            sex="Masculino"
-          />
-        </ViewShot>
-        <ProfileCard
-          name="Pr. Arnaldo"
-          position="Pastor local"
-          url="https://i.pravatar.cc/150?img=55"
-          sex="Masculino"
-        />
-        <ProfileCard
-          name="Pr. Anderson"
-          position="Pastor"
-          url="https://i.pravatar.cc/150?img=56"
-          sex="Masculino"
-        />
-        <ProfileCard
-          name="Claudio Silva"
-          position="Presbítero"
-          url="https://i.pravatar.cc/150?img=18"
-          sex="Masculino"
-        />
-        <ProfileCard
-          name="Adriano Santos"
-          position="Presbítero"
-          url="https://i.pravatar.cc/150?img=18"
-          sex="Masculino"
+        <FlatList
+          data={members}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <ProfileCard
+              name={item.name}
+              position={item.position}
+              url={item.photoUrl}
+              sex={item.sex}
+            />
+          )}
         />
       </View>
     </Container>

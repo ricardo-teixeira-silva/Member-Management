@@ -18,11 +18,7 @@ export const useRegisterNotesModel = () => {
     highlightDays: Record<string, boolean>,
     validPeriod: { start: Date; end: Date },
   ) => {
-    const buildNote = (
-      day: string,
-      weekDay: string,
-      key: string,
-    ) => ({
+    const buildNote = (day: string, weekDay: string, key: string) => ({
       day,
       weekDay,
       title: withDefaults(data[`${key}_culto`], DEFAULT_CULTO),
@@ -45,5 +41,9 @@ export const useRegisterNotesModel = () => {
     router.navigate("/(stack)/weekly-notes");
   };
 
-  return { saveNotes };
+  const goBack = () => {
+    router.back();
+  };
+
+  return { saveNotes, goBack };
 };

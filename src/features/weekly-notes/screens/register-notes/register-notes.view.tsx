@@ -9,7 +9,7 @@ import { useRegisterNotesModel } from "./register-notes.model";
 
 export default function RegisterNotes() {
   const { handleSubmit, control } = useForm({ mode: "onChange" });
-  const { saveNotes } = useRegisterNotesModel();
+  const { saveNotes, goBack } = useRegisterNotesModel();
   const [highlightDays, setHighlightDays] = useState<Record<string, boolean>>(
     {},
   );
@@ -113,7 +113,7 @@ export default function RegisterNotes() {
       />
 
       <Button title="Salvar Programação" onPress={handleSubmit(onSubmit)} />
-      <Button title="Cancelar" />
+      <Button title="Cancelar e Voltar" variant="indigoSoft" onPress={goBack} />
 
       <FeedbackModal
         visible={showDatesAlert}
