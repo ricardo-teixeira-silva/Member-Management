@@ -1,5 +1,6 @@
-import { Container } from "@/shared/componentes";
+import { Button, Container } from "@/shared/componentes";
 import { useCurrentMember } from "@/shared/store/currentMember";
+import { router } from "expo-router";
 import { Text, View } from "react-native";
 import { MenuStats } from "../../components/menu-stats";
 import { QuickActions } from "../../components/quick-actions";
@@ -46,6 +47,10 @@ export default function Dashboard() {
         missionaries={membersByPosition["Missionária"] ?? 0}
       />
       <QuickActions />
+      <Button
+        title="temp"
+        onPress={() => router.navigate("/(stack)/membership-card")}
+      />
     </Container>
   );
 }
